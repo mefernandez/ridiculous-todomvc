@@ -30,8 +30,15 @@ If you think it's fun then jump in! Fork this repo and share your thoughts with 
 Roadmap
 -------
 
-# v1. The STS default web project
+_v1. The STS default web project_
 
 This version adds:
+
 1. Spring Tool Suite 3.4.0
 2. Spring Framework
+3. TODO MVC resources
+
+Diagram
+-------
+
+![Spring framework architecture diagrama of a full-fledged Spring wep application](http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/htmlsingle/images/overview-full.png)
