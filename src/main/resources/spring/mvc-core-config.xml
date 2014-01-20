@@ -20,7 +20,7 @@
         - POJOs labeled with the @Controller and @Service annotations are auto-detected.
     -->
     <context:component-scan
-            base-package="org.springframework.samples.petclinic.web"/>
+            base-package="org.springframework.samples.petclinic.web, ridiculous.todomvc.web"/>
 
     <mvc:annotation-driven conversion-service="conversionService"/>
 
@@ -32,7 +32,6 @@
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
     <mvc:view-controller path="/" view-name="welcome" />
-    <mvc:view-controller path="/todos" view-name="todos" />
 
     <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
     <mvc:default-servlet-handler/>

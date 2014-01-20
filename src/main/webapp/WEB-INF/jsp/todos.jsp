@@ -1,9 +1,10 @@
 <!doctype html>
+
 <html lang="en" data-framework="javascript">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Spring.io • TodoMVC</title>
+		<title>Spring.io - TodoMVC</title>
 		<link rel="stylesheet" href="resources/css/base.css">
 	</head>
 	<body>
