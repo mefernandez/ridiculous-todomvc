@@ -15,28 +15,33 @@
  */
 package ridiculous.todomvc.web;
 
+import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Vets;
-import org.springframework.samples.petclinic.service.ClinicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ridiculous.todomvc.model.Todo;
+import ridiculous.todomvc.service.TodosService;
+
+
 
 @Controller
 public class TodosController {
 
-    private final ClinicService clinicService;
+    private final TodosService todosService;
 
 
     @Autowired
-    public TodosController(ClinicService clinicService) {
-        this.clinicService = clinicService;
+    public TodosController(TodosService todosService) {
+        this.todosService = todosService;
     }
 
     @RequestMapping("/todos")
     public String showVetList(Map<String, Object> model) {
-        model.put("todos", "A list of Todos coming soon...");
+    	Collection<Todo> todos = todosService.findTodos();
+        model.put("todos", todos);
         return "todos";
     }
 

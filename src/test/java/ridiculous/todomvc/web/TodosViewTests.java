@@ -17,6 +17,7 @@
 package ridiculous.todomvc.web;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -67,6 +68,7 @@ public class TodosViewTests {
         actions.andExpect(status().isOk());
         actions.andExpect(forwardedUrl("/WEB-INF/jsp/todos.jsp"));
         actions.andExpect(model().attributeExists("todos"));
+        actions.andExpect(model().attribute("todos", hasSize(6)));
         // TODO This view testing setup only checks for status and forwarded URL, but we need to actually check the returned HTML
     }
 }

@@ -16,7 +16,7 @@
     <import resource="datasource-config.xml"/>
 
     <context:component-scan
-            base-package="org.springframework.samples.petclinic.service"/>
+            base-package="org.springframework.samples.petclinic.service, ridiculous.todomvc.service"/>
 
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
     <!-- (in this case, JDBC-related settings for the JPA EntityManager definition below) -->
@@ -47,7 +47,7 @@
             </property>
             <!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, persistenceUnit will win -->
             <property name="persistenceUnitName" value="petclinic"/>
-            <property name="packagesToScan" value="org.springframework.samples.petclinic"/>
+            <property name="packagesToScan" value="org.springframework.samples.petclinic, ridiculous.todomvc"/>
         </bean>
 
         <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
@@ -77,7 +77,7 @@
             <constructor-arg ref="dataSource"/>
         </bean>
 
-        <context:component-scan base-package="org.springframework.samples.petclinic.repository.jdbc"/>
+        <context:component-scan base-package="org.springframework.samples.petclinic.repository.jdbc, ridiculous.todomvc.repository.jdbc"/>
     </beans>
 
     <beans profile="jpa">
