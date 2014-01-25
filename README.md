@@ -41,6 +41,10 @@ This version adds:
 
 #### Diagram
 
+|Architecture Tiers|Implementation|
+|:----------------:|:------------:|
+|View              |JSP           |
+
 
 ![Spring framework architecture diagram of a full-fledged Spring web application](http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/htmlsingle/images/overview-full.png)
 
