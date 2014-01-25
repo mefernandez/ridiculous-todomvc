@@ -36,20 +36,25 @@ This version adds:
 
 1. Spring Tool Suite 3.4.0
 2. Spring Framework
+  1. spring-webmvc
+  2. spring-jdbc
+  3. spring-jpa
+  4. spring-ioc
+  5. ..to be completed..
 3. Spring's Pet Clinic sample
 3. TODO MVC resources
 
 #### Diagram
 
-|Architecture Tiers|Implementation|Resources               |
-|:----------------:|:------------:|:----------------------:|
-|View              |JSP           |WEB-INF/jsp             |
-|Controller        |Spring-MVC    |@Controller, .xml       |
-|Services          |Spring-IoC    |@Service                |
-|Repository        |Spring        |@Repository             |
-|Model             |POJO          |Java Classes            |
-|Persistence       |Spring-JDBC   |business.xml            |
-|Database          |HSQL          |data-sources.properties |
+|Architecture Tiers|Implementation      |Resources                               |
+|:----------------:|:------------------:|:--------------------------------------:|
+|View              |JSP                 |WEB-INF/jsp, mvc-view-config.xml        |
+|Controller        |spring-webmvc       |@Controller, mvc-core-config.xml        |
+|Services          |Spring-IoC          |@Service                                |
+|Repository        |Spring              |@Repository                             |
+|Model             |POJO                |ridiculous.todomvc.model                |
+|Persistence       |Spring-JDBC         |business.xml                            |
+|Database          |HSQL                |data-sources.properties                 |
 
 ![Spring framework architecture diagram of a full-fledged Spring web application](http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/htmlsingle/images/overview-full.png)
 
