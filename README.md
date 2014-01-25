@@ -41,10 +41,15 @@ This version adds:
 
 #### Diagram
 
-|Architecture Tiers|Implementation|
-|:----------------:|:------------:|
-|View              |JSP           |
-
+|Architecture Tiers|Implementation|Resources               |
+|:----------------:|:------------:|:----------------------:|
+|View              |JSP           |WEB-INF/jsp             |
+|Controller        |Spring-MVC    |@Controller, .xml       |
+|Services          |Spring-IoC    |@Service                |
+|Repository        |Spring        |@Repository             |
+|Model             |POJO          |Java Classes            |
+|Persistence       |Spring-JDBC   |business.xml            |
+|Database          |HSQL          |data-sources.properties |
 
 ![Spring framework architecture diagram of a full-fledged Spring web application](http://docs.spring.io/spring/docs/4.0.0.RELEASE/spring-framework-reference/htmlsingle/images/overview-full.png)
 
