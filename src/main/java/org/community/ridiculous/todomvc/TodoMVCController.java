@@ -11,20 +11,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TodoMVCController {
 	
+	List<Todo> todos = new ArrayList<Todo>();
+
 	@RequestMapping("/")
 	public String listTodos() {
 		return "index";
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String createTodo() {
+	public String createTodo(Todo todo) {
+		this.todos.add(todo);
 		return "index";
 	}
 	
 	@ModelAttribute("todos")
 	public List<Todo> todosModelAttribute() {
-		List<Todo> todos = new ArrayList<Todo>();
-		todos.add(new Todo("Dummy", true));
 		return todos;
 	}
 

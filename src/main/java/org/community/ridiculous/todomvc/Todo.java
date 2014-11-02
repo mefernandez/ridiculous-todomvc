@@ -4,6 +4,10 @@ public class Todo {
 	
 	String title;
 	boolean completed = false;
+	
+	public Todo() {
+		
+	}
 
 	public Todo(String title, boolean completed) {
 		this.title = title;
