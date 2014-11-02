@@ -2,6 +2,8 @@
 
 A fun experiment to see how much software architecture can be stuffed into a Spring.io based TODO list Java web application.
 
+[ ![Codeship Status for mefernandez/ridiculous-todomvc](https://www.codeship.io/projects/01bf8030-448c-0132-c733-5ea9e4cf64c6/status)](https://www.codeship.io/projects/44841)
+
 ## Goal
 
 Try to fit in as much Frameworks, Java language features, and Enterprise Patterns as possible into a Java web application based on [TODO MVC](http://todomvc.com/) project.
