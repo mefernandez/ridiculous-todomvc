@@ -1,9 +1,19 @@
 package org.community.ridiculous.todomvc;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Todo {
 	
 	String title;
 	boolean completed = false;
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+	Long id;
 	
 	public Todo() {
 		
