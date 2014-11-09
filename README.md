@@ -4,6 +4,8 @@ A fun experiment to see how much software architecture can be stuffed into a Spr
 
 [ ![Codeship Status for mefernandez/ridiculous-todomvc](https://www.codeship.io/projects/01bf8030-448c-0132-c733-5ea9e4cf64c6/status)](https://www.codeship.io/projects/44841)
 
+[ ![Heroku Favicon](https://github.com/heroku/favicon/raw/master/favicon.iconset/icon_32x32.png) **Application Running on Heroku**](https://pure-hamlet-7867.herokuapp.com/)
+
 ## Goal
 
 Try to fit in as much Frameworks, Java language features, and Enterprise Patterns as possible into a Java web application based on [TODO MVC](http://todomvc.com/) project.
