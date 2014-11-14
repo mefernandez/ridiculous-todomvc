@@ -33,11 +33,11 @@
 		<footer id="footer">
 			<span id="todo-count"></span>
 			<ul id="filters">
-				<li><a href="#/" class="selected">All</a></li>
-				<li><a href="#/active">Active</a></li>
-				<li><a href="#/completed">Completed</a></li>
+				<li><a href="#/" th:class="(${filter} eq 'All') ? ('selected')">All</a></li>
+				<li><a href="#/active" th:class="(${filter} eq 'Active') ? ('selected')">Active</a></li>
+				<li><a href="#/completed" th:class="(${filter} eq 'Completed') ? ('selected')">Completed</a></li>
 			</ul>
-			<button id="clear-completed">Clear completed</button>
+			<button id="clear-completed" th:text="|Clear completed (${countCompleted})|">Clear completed</button>
 		</footer>
 	</section>
 	<footer id="info">

@@ -105,9 +105,24 @@ public class TodoMVCControllerTest {
 	@Test
 	public void shouldSetTheClearCompletedButton() throws Exception {
 		this.mockMvc.perform(get("/"))
-		.andDo(print())
         .andExpect(status().isOk())
         .andExpect(xpath("//*[@id='clear-completed']/text()").string("Clear completed (1)"));		
+	}
+	
+	@Test
+	public void shouldHighlightAllFilterByDefault() throws Exception {
+		this.mockMvc.perform(get("/"))
+		.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(xpath("//*[@id='filters']/li/a[@class='selected']/text()").string("All"));		
+	}
+
+	@Test
+	public void shouldHighlightActiveFilterWhenSwitchingToActiveView() throws Exception {
+		this.mockMvc.perform(get("/active"))
+		.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(xpath("//*[@id='filters']/li/a[@class='selected']/text()").string("Active"));		
 	}
 	
 	

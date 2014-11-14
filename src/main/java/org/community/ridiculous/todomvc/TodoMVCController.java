@@ -12,15 +12,36 @@ public class TodoMVCController {
 	@Autowired
 	ITodoRepository repository;
 
-	@RequestMapping("/")
+	@RequestMapping(value = "/")
 	public String listAllTodos(Model model) {
 		Iterable<Todo> todos = repository.findAll();
+		addModelAttributes(model, todos);
+		model.addAttribute("filter", "All");
+		return "index";
+	}
+
+	@RequestMapping("/active")
+	public String listActiveTodos(Model model) {
+		Iterable<Todo> todos = repository.findByCompleted(false);
+		addModelAttributes(model, todos);
+		model.addAttribute("filter", "Active");
+		return "index";
+	}
+
+	@RequestMapping("/completed")
+	public String listCompletedTodos(Model model) {
+		Iterable<Todo> todos = repository.findByCompleted(true);
+		addModelAttributes(model, todos);
+		model.addAttribute("filter", "Completed");
+		return "index";
+	}
+
+	private void addModelAttributes(Model model, Iterable<Todo> todos) {
 		model.addAttribute("todos", todos);
 		int countCompleted = countCompleted(todos);
 		model.addAttribute("countCompleted", countCompleted);
 		boolean allComplete = (countCompleted == repository.count());
 		model.addAttribute("allComplete", allComplete);
-		return "index";
 	}
 
 	private int countCompleted(Iterable<Todo> todos) {
@@ -33,22 +54,10 @@ public class TodoMVCController {
 		return countCompleted;
 	}
 
-	@RequestMapping("/active")
-	public String listActiveTodos(Model model) {
-		model.addAttribute("todos", repository.findByCompleted(false));
-		return "index";
-	}
-
-	@RequestMapping("/completed")
-	public String listCompletedTodos(Model model) {
-		model.addAttribute("todos", repository.findByCompleted(true));
-		return "index";
-	}
-
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String createTodo(Todo todo) {
 		repository.save(todo);
-		return "index";
+		return "redirect:/";
 	}
 	
 }
