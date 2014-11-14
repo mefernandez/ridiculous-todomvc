@@ -16,8 +16,8 @@
 					autofocus="autofocus" name="title" />
 			</form>
 		</header>
-		<section id="main">
-			<input id="toggle-all" type="checkbox" /> <label for="toggle-all">Mark
+		<section id="main" th:style="'display: ' + ${todos.size() gt 0 ? 'block' : 'none'}">
+			<input id="toggle-all" type="checkbox" th:checked="${allComplete}"/> <label for="toggle-all">Mark
 				all as complete</label>
 			<ul id="todo-list">
 				<li th:each="todo : ${todos}"
