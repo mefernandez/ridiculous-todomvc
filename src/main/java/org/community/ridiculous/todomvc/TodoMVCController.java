@@ -36,6 +36,17 @@ public class TodoMVCController {
 		return "index";
 	}
 
+	@RequestMapping("/toggle")
+	public String toggleAllTodos(Model model) {
+		Iterable<Todo> todos = repository.findAll();
+		for (Todo todo : todos) {
+			todo.setCompleted(true);
+			repository.save(todo);
+		}
+		addModelAttributes(model, todos);
+		return "redirect:/";
+	}
+
 	private void addModelAttributes(Model model, Iterable<Todo> todos) {
 		model.addAttribute("todos", todos);
 		int countCompleted = countCompleted(todos);

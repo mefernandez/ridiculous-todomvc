@@ -16,6 +16,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.context.WebApplicationContext;
@@ -112,7 +113,6 @@ public class TodoMVCControllerTest {
 	@Test
 	public void shouldHighlightAllFilterByDefault() throws Exception {
 		this.mockMvc.perform(get("/"))
-		.andDo(print())
         .andExpect(status().isOk())
         .andExpect(xpath("//*[@id='filters']/li/a[@class='selected']/text()").string("All"));		
 	}
@@ -120,10 +120,41 @@ public class TodoMVCControllerTest {
 	@Test
 	public void shouldHighlightActiveFilterWhenSwitchingToActiveView() throws Exception {
 		this.mockMvc.perform(get("/active"))
-		.andDo(print())
         .andExpect(status().isOk())
         .andExpect(xpath("//*[@id='filters']/li/a[@class='selected']/text()").string("Active"));		
 	}
 	
+	@Test
+	public void shouldToggleAllTodosToCompleted() throws Exception {
+		this.mockMvc.perform(get("/toggle"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(header().string("Location", startsWith("/?")))
+        .andExpect(model().attribute("todos", everyItem(hasProperty("completed", is(true)))));
+	}
 	
+	@Test
+	public void shouldUpdateTheView() throws Exception {
+		MvcResult redirection = this.mockMvc.perform(get("/toggle"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrlPattern("/?*"))
+		.andReturn();
+		
+		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
+        .andExpect(xpath("//*[@class='toggle'][@type='checkbox'][@checked='checked']").nodeCount(2));		
+	}
+	
+	@Test
+	public void shouldAddANewTodoToTheModel() throws Exception {
+		MvcResult redirection = this.mockMvc.perform(post("/")
+				.param("title", "New Todo"))
+		.andDo(print())
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("/"))
+		.andReturn();
+
+		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
+		.andExpect(model().attribute("todos", hasSize(3)))
+		.andExpect(model().attribute("todos", hasItem(hasProperty("title", equalTo("New Todo")))));
+	}	
+		
 }
