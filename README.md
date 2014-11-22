@@ -39,6 +39,42 @@ Things you can do:
 Start from scratch with [Spring Boot](http://projects.spring.io/spring-boot/).
 Rewrite all tests in [TODO MVC VanillaJS](https://github.com/tastejs/todomvc/tree/gh-pages/examples/vanillajs) and make them pass.
 
+#### Highlights
+- Porting tests from TODO MVC VanillasJS was quite straightforward, although some tests needed to be interpreted in a different way, and some just could not be ported because they did not test any client-server interaction, like double clicking an item to enter in "edit mode".
+- Although 26 ported tests passed Ok, much of the functionality still did not work, so the testing "power" diminished so to speak.
+- I setup 2 `Todo` as test data, one active, one completed, `@Before` each `@Test` method. 
+```java
+	@Before
+	public void setup() throws Exception {
+    ...
+		repository.save(new Todo("New Active Todo", false));
+		repository.save(new Todo("New Completed Todo", true));
+	}
+```
+But I needed to know the `@Id` for each `Todo` to set expectations at the end of each test. However, the id generation strategy is set to `@GeneratedValue` in the `Todo.class`. 
+```java
+	
+	@Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+	Long id;
+````
+That caused Todos to have a greater id number every time `@Before` gets called. I searched all over the internet for information on how to change the id generation strategy at runtime to another one like `@Assigned`, but I found no example. I took some deep dives into Hibernate's API but did not find a way to properly swap strategies at runtime. Finally, debugging Hibernate code lead me to find where the strategy is stored, and so I could only change it using Reflection. Here's how:
+```java
+	@Autowired
+	EntityManagerFactory factory;
+	...
+	SessionFactoryImplementor sessionFactory = this.factory.unwrap(SessionFactoryImplementor.class);
+	EntityPersister persister = sessionFactory.getEntityPersister( Todo.class.getName() );
+	IdentifierProperty identifierProperty = persister.getEntityMetamodel().getIdentifierProperty();
+	/* Things get tough now, since I've found no way in Hibnerate's API to set a different Generator,
+	 * so I'm using Reflection.
+	 */
+	Field f = identifierProperty.getClass().getDeclaredField("identifierGenerator");
+	f.setAccessible(true);
+	f.set(identifierProperty, myGenerator);
+```
+Definitively not elegant, but effective.
+
 #### Architecture
 
 |Architecture Tiers|Implementation      |Resources                               |
