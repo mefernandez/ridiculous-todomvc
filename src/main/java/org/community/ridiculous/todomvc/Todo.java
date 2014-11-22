@@ -14,7 +14,7 @@ public class Todo {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	Long id;
-	
+
 	public Todo() {
 		
 	}
@@ -40,4 +40,11 @@ public class Todo {
 		this.completed = completed;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

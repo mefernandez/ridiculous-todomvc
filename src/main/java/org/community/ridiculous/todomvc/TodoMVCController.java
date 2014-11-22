@@ -1,10 +1,14 @@
 package org.community.ridiculous.todomvc;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TodoMVCController {
@@ -68,6 +72,40 @@ public class TodoMVCController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String createTodo(Todo todo) {
 		repository.save(todo);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public String deleteTodo(@PathVariable("id") Long id) {
+		repository.delete(id);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/completed", method = RequestMethod.DELETE)
+	public String deleteCompleted() {
+		Iterable<Todo> completed = repository.findByCompleted(true);
+		repository.delete(completed);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/{id}/toggle", method = RequestMethod.POST)
+	public String toggleTodo(@PathVariable("id") Long id) {
+		Todo todo = repository.findOne(id);
+		boolean completed = todo.isCompleted();
+		todo.setCompleted(!completed);
+		repository.save(todo);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	public String editTodo(@PathVariable("id") Long id, @RequestParam("title") String title) {
+		if (title.isEmpty()) {
+			repository.delete(id);
+		} else {
+			Todo todo = repository.findOne(id);
+			todo.setTitle(title);
+			repository.save(todo);
+		}
 		return "redirect:/";
 	}
 	
