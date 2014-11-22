@@ -44,7 +44,8 @@ public class TodoMVCController {
 	public String toggleAllTodos(Model model) {
 		Iterable<Todo> todos = repository.findAll();
 		for (Todo todo : todos) {
-			todo.setCompleted(true);
+			boolean completed = todo.isCompleted();
+			todo.setCompleted(!completed);
 			repository.save(todo);
 		}
 		addModelAttributes(model, todos);

@@ -6,6 +6,8 @@
 <title>Ridiculous • TodoMVC</title>
 <link rel="stylesheet" href="css/base.css" />
 <link rel="stylesheet" href="css/app.css" />
+<script type="text/javascript" src="js/helpers.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
 </head>
 <body>
 	<section id="todoapp">
@@ -17,16 +19,21 @@
 			</form>
 		</header>
 		<section id="main" th:style="'display: ' + ${todos.size() gt 0 ? 'block' : 'none'}">
+			<form action="/toggle" method="POST">
 			<input id="toggle-all" type="checkbox" th:checked="${allComplete}"/> <label for="toggle-all">Mark
 				all as complete</label>
+			</form>
 			<ul id="todo-list">
 				<li th:each="todo : ${todos}"
-					th:class="${todo.completed ? 'completed' : ''}" data-id="{{id}}">
+					th:class="${todo.completed ? 'completed' : ''}" th:attr="data-id=${todo.id}">
+					<form method="POST">
 					<div class="view">
 						<input class="toggle" type="checkbox"
 							th:checked="${todo.completed}" /> <label th:text="${todo.title}">{{title}}</label>
 						<button class="destroy"></button>
-					</div> <input class="edit" value="{{title}}" />
+					</div> 
+					<input class="edit" value="{{title}}" />
+					</form>
 				</li>
 			</ul>
 		</section>

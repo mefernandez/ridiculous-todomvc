@@ -172,22 +172,25 @@ public class TodoMVCControllerTest {
 	}
 	
 	@Test
-	public void shouldToggleAllTodosToCompleted() throws Exception {
+	public void shouldToggleAllTodos() throws Exception {
 		this.mockMvc.perform(get("/toggle"))
         .andExpect(status().is3xxRedirection())
         .andExpect(header().string("Location", Matchers.startsWith("/?")))
-        .andExpect(model().attribute("todos", everyItem(hasProperty("completed", is(true)))));
+        .andExpect(model().attribute("todos", hasItem(allOf(hasProperty("id", equalTo(1L)), hasProperty("completed", equalTo(true))))))
+        .andExpect(model().attribute("todos", hasItem(allOf(hasProperty("id", equalTo(2L)), hasProperty("completed", equalTo(false))))));
 	}
 	
 	@Test
-	public void shouldUpdateTheView() throws Exception {
+	public void toggleAllTodosShouldUpdateTheView() throws Exception {
 		MvcResult redirection = this.mockMvc.perform(get("/toggle"))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrlPattern("/?*"))
 		.andReturn();
 		
 		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
-        .andExpect(xpath("//*[@class='toggle'][@type='checkbox'][@checked='checked']").nodeCount(2));		
+		.andDo(print())
+        .andExpect(xpath("//*[@data-id=1]//*[@class='toggle'][@type='checkbox'][@checked='checked']").nodeCount(1))		
+        .andExpect(xpath("//*[@data-id=2]//*[@class='toggle'][@type='checkbox'][not(@checked)]").nodeCount(1));		
 	}
 	
 	@Test
@@ -212,7 +215,6 @@ public class TodoMVCControllerTest {
 		.andReturn();
 
 		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
-		.andDo(print())
         .andExpect(xpath("//*[@id='todo-list']//label[contains(text(), 'New Todo')]").nodeCount(1));		
 	}
 	
@@ -247,7 +249,6 @@ public class TodoMVCControllerTest {
 		.andReturn();
 
 		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
-		.andDo(print())
         .andExpect(xpath("//*[@id='todo-list']//label").nodeCount(1));		
 	}
 
