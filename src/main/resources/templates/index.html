@@ -24,15 +24,16 @@
 				all as complete</label>
 			</form>
 			<ul id="todo-list">
-				<li th:each="todo : ${todos}"
-					th:class="${todo.completed ? 'completed' : ''}" th:attr="data-id=${todo.id}">
-					<form th:action="@{/{id}/toggle(id=${todo.id})}" method="POST">
+				<li th:each="todo : ${todos}" th:class="${todo.completed ? 'completed' : ''}" th:attr="data-id=${todo.id}">
 					<div class="view">
-						<input class="toggle" type="checkbox"
-							th:checked="${todo.completed}" /> <label th:text="${todo.title}">{{title}}</label>
+					<form th:action="@{/{id}/toggle(id=${todo.id})}" method="POST">
+						<input class="toggle" type="checkbox" th:checked="${todo.completed}" />
+						<label th:text="${todo.title}" th:attr="data-id=${todo.id}">{{title}}</label>
 						<button class="destroy"></button>
+					</form>
 					</div> 
-					<input class="edit" value="{{title}}" />
+					<form th:action="@{/{id}(id=${todo.id})}" method="POST">
+						<input class="edit" name="title" th:value="${todo.title}" th:id="|edit-todo-${todo.id}|"/>
 					</form>
 				</li>
 			</ul>
