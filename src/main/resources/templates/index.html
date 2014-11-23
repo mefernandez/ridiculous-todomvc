@@ -28,7 +28,10 @@
 					<div class="view">
 					<form th:action="@{/{id}/toggle(id=${todo.id})}" method="POST">
 						<input class="toggle" type="checkbox" th:checked="${todo.completed}" />
+					</form>
 						<label th:text="${todo.title}" th:attr="data-id=${todo.id}">{{title}}</label>
+					<form th:action="@{/{id}(id=${todo.id})}" method="POST">
+						<input type="hidden" name="_method" value="DELETE"/>
 						<button class="destroy"></button>
 					</form>
 					</div> 
