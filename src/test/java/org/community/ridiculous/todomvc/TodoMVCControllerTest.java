@@ -20,10 +20,9 @@ import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.tuple.IdentifierProperty;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -308,8 +307,17 @@ public class TodoMVCControllerTest {
 
 	}
 
-	// TODO editItemShouldSwitchToEditMode
-	// TODO editItemShouldLeaveEditModeOnDone
+	@Test
+	@Ignore
+	public void editItemShouldSwitchToEditMode() throws Exception {
+		// TODO How to port this test? 
+	}
+
+	@Test
+	@Ignore
+	public void editItemShouldLeaveEditModeOnDone() throws Exception {
+		// TODO How to port this test? 
+	}
 	
 	@Test
 	public void editItemShouldPersistTheChangesOnDone() throws Exception {
@@ -347,6 +355,16 @@ public class TodoMVCControllerTest {
 		.andExpect(model().attribute("todos", not(hasItem(hasProperty("id", equalTo(1L)))))); 
 	}
 	
-	// TODO shouldLeaveEditModeOnCancel
-	// TODO shouldNotPersistTheChangesOnCancel
+	@Test
+	@Ignore
+	public void shouldLeaveEditModeOnCancel() throws Exception {
+		// TODO How to port this test? 
+	}
+
+	@Test
+	@Ignore
+	public void shouldNotPersistTheChangesOnCancel() throws Exception {
+		// TODO How to port this test? 
+	}
+
 }

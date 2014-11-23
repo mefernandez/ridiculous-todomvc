@@ -26,7 +26,7 @@
 			<ul id="todo-list">
 				<li th:each="todo : ${todos}"
 					th:class="${todo.completed ? 'completed' : ''}" th:attr="data-id=${todo.id}">
-					<form method="POST">
+					<form th:action="@{/{id}/toggle(id=${todo.id})}" method="POST">
 					<div class="view">
 						<input class="toggle" type="checkbox"
 							th:checked="${todo.completed}" /> <label th:text="${todo.title}">{{title}}</label>
