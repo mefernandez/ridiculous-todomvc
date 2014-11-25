@@ -3,7 +3,6 @@ package org.community.ridiculous.todomvc;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import java.lang.reflect.Field;
 import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 
-import org.hamcrest.Matchers;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -172,9 +170,12 @@ public class TodoMVCControllerTest {
 	
 	@Test
 	public void shouldToggleAllTodos() throws Exception {
-		this.mockMvc.perform(get("/toggle"))
+		MvcResult redirection = this.mockMvc.perform(get("/toggle"))
         .andExpect(status().is3xxRedirection())
-        .andExpect(header().string("Location", Matchers.startsWith("/?")))
+        .andExpect(redirectedUrl("/"))
+        .andReturn();
+		
+		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
         .andExpect(model().attribute("todos", hasItem(allOf(hasProperty("id", equalTo(1L)), hasProperty("completed", equalTo(true))))))
         .andExpect(model().attribute("todos", hasItem(allOf(hasProperty("id", equalTo(2L)), hasProperty("completed", equalTo(false))))));
 	}
@@ -183,11 +184,10 @@ public class TodoMVCControllerTest {
 	public void toggleAllTodosShouldUpdateTheView() throws Exception {
 		MvcResult redirection = this.mockMvc.perform(get("/toggle"))
         .andExpect(status().is3xxRedirection())
-        .andExpect(redirectedUrlPattern("/?*"))
+        .andExpect(redirectedUrl("/"))
 		.andReturn();
 		
 		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
-		.andDo(print())
         .andExpect(xpath("//*[@data-id=1]//*[@class='toggle'][@type='checkbox'][@checked='checked']").nodeCount(1))		
         .andExpect(xpath("//*[@data-id=2]//*[@class='toggle'][@type='checkbox'][not(@checked)]").nodeCount(1));		
 	}
@@ -259,7 +259,7 @@ public class TodoMVCControllerTest {
 		.andReturn();
 
 		this.mockMvc.perform(get(redirection.getResponse().getRedirectedUrl()))
-        .andExpect(xpath("//*[@id='todo-count']/strong/text()").string("1"));		
+        .andExpect(xpath("//*[@id='todo-count']/strong/text()").string("0"));		
 	}
 
 	@Test
@@ -365,6 +365,20 @@ public class TodoMVCControllerTest {
 	@Ignore
 	public void shouldNotPersistTheChangesOnCancel() throws Exception {
 		// TODO How to port this test? 
+	}
+
+	@Test
+	public void shouldCountActiveTodos() throws Exception {
+		this.mockMvc.perform(get("/"))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(model().attribute("countActive", equalTo(1)));
+	}
+	
+	@Test
+	public void shouldShowCountActiveTodos() throws Exception {
+		this.mockMvc.perform(get("/"))
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(xpath("//*[@id='todo-count']/strong/text()").string("1"));
 	}
 
 }

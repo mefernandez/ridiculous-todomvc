@@ -6,4 +6,5 @@ public interface ITodoRepository extends CrudRepository<Todo, Long> {
 
 	Iterable<Todo> findByCompleted(boolean completed);
 
+	int countByCompleted(boolean completed);
 }

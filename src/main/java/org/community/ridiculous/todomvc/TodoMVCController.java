@@ -1,7 +1,5 @@
 package org.community.ridiculous.todomvc;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,26 +46,17 @@ public class TodoMVCController {
 			todo.setCompleted(!completed);
 			repository.save(todo);
 		}
-		addModelAttributes(model, todos);
 		return "redirect:/";
 	}
 
 	private void addModelAttributes(Model model, Iterable<Todo> todos) {
 		model.addAttribute("todos", todos);
-		int countCompleted = countCompleted(todos);
+		int countCompleted = repository.countByCompleted(true);
 		model.addAttribute("countCompleted", countCompleted);
-		boolean allComplete = (countCompleted == repository.count());
+		int countActive = repository.countByCompleted(false);
+		model.addAttribute("countActive", countActive);
+		boolean allComplete = (countActive == 0);
 		model.addAttribute("allComplete", allComplete);
-	}
-
-	private int countCompleted(Iterable<Todo> todos) {
-		int countCompleted = 0;
-		for (Todo todo: todos) {
-			if (todo.isCompleted()) {
-				countCompleted++;
-			}
-		}
-		return countCompleted;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)

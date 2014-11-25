@@ -36,25 +36,28 @@
 					</form>
 					</div> 
 					<form th:action="@{/{id}(id=${todo.id})}" method="POST">
-						<input class="edit" name="title" th:value="${todo.title}" th:id="|edit-todo-${todo.id}|"/>
+						<input class="edit" name="title" th:value="${todo.title}" th:id="|edit-todo-${todo.id}|" th:attr="data-id=${todo.id}"/>
 					</form>
 				</li>
 			</ul>
 		</section>
 		<footer id="footer">
-			<span id="todo-count" th:unless="${todos.isEmpty()}"><strong th:text="${todos.size()}">3</strong> items left</span>
+			<span id="todo-count"><strong th:text="${countActive}">3</strong> items left</span>
 			<ul id="filters">
-				<li><a href="#/" th:class="(${filter} eq 'All') ? ('selected')">All</a></li>
-				<li><a href="#/active" th:class="(${filter} eq 'Active') ? ('selected')">Active</a></li>
-				<li><a href="#/completed" th:class="(${filter} eq 'Completed') ? ('selected')">Completed</a></li>
+				<li><a href="/" th:class="(${filter} eq 'All') ? ('selected')">All</a></li>
+				<li><a href="/active" th:class="(${filter} eq 'Active') ? ('selected')">Active</a></li>
+				<li><a href="/completed" th:class="(${filter} eq 'Completed') ? ('selected')">Completed</a></li>
 			</ul>
-			<button id="clear-completed" th:text="|Clear completed (${countCompleted})|">Clear completed</button>
+			<form th:action="@{/completed}" method="POST">
+				<input type="hidden" name="_method" value="DELETE"/>
+				<button id="clear-completed" th:text="|Clear completed (${countCompleted})|">Clear completed</button>
+			</form>
 		</footer>
 	</section>
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>
-			Created by <a href="http://twitter.com/eloy_iv">@eloy_iv</a>
+			Ported by <a href="http://twitter.com/eloy_iv">@eloy_iv</a>
 		</p>
 		<p>
 			Inspired by <a href="http://todomvc.com">TodoMVC</a>
