@@ -57,6 +57,9 @@
 	<footer id="info">
 		<p>Double-click to edit a todo</p>
 		<p>
+			Current version is <strong>v1.0.0-RELEASE</strong>
+		</p>
+		<p>
 			Ported by <a href="http://twitter.com/eloy_iv">@eloy_iv</a>
 		</p>
 		<p>
@@ -66,28 +69,5 @@
 			Check the code at <a href="https://github.com/mefernandez/ridiculous-todomvc">GitHub</a>
 		</p>
 	</footer>
-	<script id="todo-template" type="text/x-handlebars-template">
-		<![CDATA[
-			{{#this}}
-		{{/this}}
-		]]>
-		</script>
-	<script id="footer-template" type="text/x-handlebars-template">
-		<![CDATA[
-			<span id="todo-count"><strong>{{activeTodoCount}}</strong> {{activeTodoWord}} left</span>
-			<ul id="filters">
-				<li>
-					<a {{#eq filter 'all'}}class="selected"{{/eq}} href="#/all">All</a>
-				</li>
-				<li>
-					<a {{#eq filter 'active'}}class="selected"{{/eq}}href="#/active">Active</a>
-				</li>
-				<li>
-					<a {{#eq filter 'completed'}}class="selected"{{/eq}}href="#/completed">Completed</a>
-				</li>
-			</ul>
-			{{#if completedTodos}}<button id="clear-completed">Clear completed ({{completedTodos}})</button>{{/if}}
-		]]>
-		</script>
 </body>
 </html>
