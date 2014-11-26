@@ -8,7 +8,7 @@ A fun experiment to see how much software architecture can be stuffed into a Spr
 
 ## Goal
 
-Try to fit in as much Frameworks, Java language features, and Enterprise Patterns as possible into a Java web application based on [TODO MVC](http://todomvc.com/) project.
+Try to fit in as many Frameworks, Java language features, and Enterprise Patterns as possible into a Java web application based on [TODO MVC](http://todomvc.com/) project.
 
 Examples of things that can be added are: 
 - Spring.io projects: [Spring Security, etc.](http://spring.io/docs)
