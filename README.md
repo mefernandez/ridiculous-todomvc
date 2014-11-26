@@ -90,5 +90,11 @@ Definitively not elegant, but effective.
 
 ### v1.1.0 Add Jade View Tier
 
+The idea is to keep the architecture shown above and add [Jade](http://jade-lang.com/) as a templating engine in the View tier using [jade4j](https://github.com/neuland/jade4j).
+
+Also, let's add a footer with some form controls to switch between template engines. 
+We'll extend this later on to make further changed in the application's configuration.
+
+
 ### v1.2.0 _(proposals anyone?)_
 
