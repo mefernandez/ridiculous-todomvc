@@ -34,7 +34,7 @@ Things you can do:
 
 ## Roadmap
 
-### v1. Building TODO MVC VanillaJS with Spring Boot _(work in progress)_
+### v1.0.0 Building TODO MVC VanillaJS with Spring Boot _(work in progress)_
 
 Start from scratch with [Spring Boot](http://projects.spring.io/spring-boot/).
 Rewrite all tests in [TODO MVC VanillaJS](https://github.com/tastejs/todomvc/tree/gh-pages/examples/vanillajs) and make them pass.
@@ -88,7 +88,13 @@ Definitively not elegant, but effective.
 |Database          |HSQL                |application.properties                  |
 
 
-### v2. Add Jade View Tier
+### v1.1.0 Add Jade View Tier
 
-### v3. _(proposals anyone?)
+The idea is to keep the architecture shown above and add [Jade](http://jade-lang.com/) as a templating engine in the View tier using [jade4j](https://github.com/neuland/jade4j).
+
+Also, let's add a footer with some form controls to switch between template engines. 
+We'll extend this later on to make further changed in the application's configuration.
+
+
+### v1.2.0 _(proposals anyone?)_
 
