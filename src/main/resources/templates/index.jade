@@ -12,7 +12,7 @@ html(lang="en")
       header#header
         h1 todos
         form(method='POST')
-          input#new-todo(name='title', placeholder='What needs to be done', autofocus)
+          input#new-todo(name='title', placeholder='What needs to be done?', autofocus)
       section#main(style='display: ' + ((todos.size() > 0) ? 'block' : 'none'))
         form(action='/toggle', method='POST')
           input#toggle-all(type='checkbox', checked=allComplete)
@@ -37,11 +37,11 @@ html(lang="en")
         ul#filters
           li
             a(href='/', class=(filter == 'All' ? 'selected' : '')). All
-            a(href='/active', class=(filter == 'Active' ? 'selected' : '')). Active
-            a(href='/completed', class=(filter == 'Completed' ? 'selected' : '')). Completed
+            a(href='/active', class=(filter == 'Active' ? 'selected' : '')). &nbsp;Active
+            a(href='/completed', class=(filter == 'Completed' ? 'selected' : '')). &nbsp;Completed
         form(action='/completed', method='POST')
           input(type='hidden', name='_method', value='DELETE')
-          button#clear-completed Clear completed #{countCompleted}
+          button#clear-completed Clear completed (#{countCompleted})
     footer#info
       p Double-click to edit a todo
       p Current version is 
