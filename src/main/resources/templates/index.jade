@@ -1,0 +1,58 @@
+doctype html
+html(lang="en")
+  head
+    title.
+      Ridiculous • TodoMVC
+    link(rel='stylesheet', href='css/base.css')
+    link(rel='stylesheet', href='css/app.css')
+    script(type='text/javascript', src='js/helpers.js').
+    script(type='text/javascript', src='js/app.js').
+  body
+    section#todoapp
+      header#header
+        h1 todos
+        form(method='POST')
+          input#new-todo(name='title', placeholder='What needs to be done', autofocus)
+      section#main(style='display: ' + ((todos.size() > 0) ? 'block' : 'none'))
+        form(action='/toggle', method='POST')
+          input#toggle-all(type='checkbox', checked=allComplete)
+            label(for='toggle-all').
+              Mark all as complete
+        ul#todo-list
+          each todo in todos
+            li(class=((todo.completed) ? 'completed' : ''), data-id=todo.id)
+              div.view
+                form(action='/#{todo.id}/toggle', method='POST')
+                  input.toggle(type='checkbox', checked=todo.completed)
+                label(data-id=todo.id)= todo.title
+                form(action='/#{todo.id}', method='POST')
+                  input(type='hidden', name='_method', value='DELETE')
+                  button.destroy
+              form(action='/#{todo.id}', method='POST')
+                input.edit(name='title', value=todo.title, id='edit-todo-#{todo.id}', data-id=todo.id)
+      footer#footer
+        span#todo-count
+          strong= countActive
+          |&nbsp;items left
+        ul#filters
+          li
+            a(href='/', class=(filter == 'All' ? 'selected' : '')). All
+            a(href='/active', class=(filter == 'Active' ? 'selected' : '')). Active
+            a(href='/completed', class=(filter == 'Completed' ? 'selected' : '')). Completed
+        form(action='/completed', method='POST')
+          input(type='hidden', name='_method', value='DELETE')
+          button#clear-completed Clear completed #{countCompleted}
+    footer#info
+      p Double-click to edit a todo
+      p Current version is 
+        strong v1.1.0-RELEASE
+      p Ported by 
+        a(href='http://twitter.com/eloy_iv') @eloy_iv
+      p Inspired by 
+        a(href='http://todomvc.com') TodoMVC
+      p Check the code at 
+        a(href='https://github.com/mefernandez/ridiculous-todomvc') GitHub
+      p Switch the View tier to 
+        a(href='jade') Jade
+        |&nbsp;or 
+        a(href='thymeleaf') Thymeleaf
