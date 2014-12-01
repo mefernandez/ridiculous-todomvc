@@ -42,7 +42,8 @@ Rewrite all tests in [TODO MVC VanillaJS](https://github.com/tastejs/todomvc/tre
 #### Highlights
 - Porting tests from TODO MVC VanillasJS was quite straightforward, although some tests needed to be interpreted in a different way, and some just could not be ported because they did not test any client-server interaction, like double clicking an item to enter in "edit mode".
 - Although 26 ported tests passed Ok, much of the functionality still did not work. The testing "power" diminished, so to speak. Extra tests were added.
-- The original TODO MVC stored Todos in local storage, hence a Todo list was only visible to a specific user. In this version, there is one single Todo list which is shared visible to all. Although this would not be the right behaviour for a Todo app, I think this will arise be some interesting scenarios to deal with, so let's leave it as it is for now.
+- The original TODO MVC stored Todos in local storage, hence a Todo list was only visible to a specific user. In this version, the Todo list is stored in the server (using `@Repository` with `JPA` and `HSQLDB`), which is shared and is visible to all users. Although this would not be the right behaviour for a Todo app, I think this will arise be some interesting scenarios to deal with, so let's leave it as it is for now.
+- There's no `@Service` implementation yet. I rather wait to code it when I need it.
 - I setup 2 `Todo` as test data, one active, one completed, `@Before` each `@Test` method. 
 ```java
 	@Before
@@ -95,6 +96,14 @@ The idea is to keep the architecture shown above and add [Jade](http://jade-lang
 Also, let's add a footer with some form controls to switch between template engines. 
 We'll extend this later on to make further changed in the application's configuration.
 
+#### Highlights
+- Adding `Jade` was a bliss. It only took a little effort to realize how to let Spring delegate to `JadeViewResolver`. I had to debug and inspect Spring's sources to see how `ContentNegotiatingViewResolver.getBestView()` picks a `ViewResolver` from the list of registered `ViewResolver`s. All it takes is sorting this list to prioritize a specific `ViewResolver`.
+- Very basic JMeter tests are also in place to see how the app performs. It responds to 10 concurrent users in 1.5 seconds steadily. The intent is to see how the performance evolves as we add more layers and `archtifacts` to the app.
 
-### v1.2.0 _(proposals anyone?)_
+### v1.2.0 RabbitMQ
 
+### v1.3.0 Cometd
+
+### v1.4.0 Elastic Search
+
+### v1.5.0 _(proposals anyone?)_
