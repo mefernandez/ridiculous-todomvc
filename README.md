@@ -41,7 +41,8 @@ Rewrite all tests in [TODO MVC VanillaJS](https://github.com/tastejs/todomvc/tre
 
 #### Highlights
 - Porting tests from TODO MVC VanillasJS was quite straightforward, although some tests needed to be interpreted in a different way, and some just could not be ported because they did not test any client-server interaction, like double clicking an item to enter in "edit mode".
-- Although 26 ported tests passed Ok, much of the functionality still did not work, so the testing "power" diminished so to speak.
+- Although 26 ported tests passed Ok, much of the functionality still did not work. The testing "power" diminished, so to speak. Extra tests were added.
+- The original TODO MVC stored Todos in local storage, hence a Todo list was only visible to a specific user. In this version, there is one single Todo list which is shared visible to all. Although this would not be the right behaviour for a Todo app, I think this will arise be some interesting scenarios to deal with, so let's leave it as it is for now.
 - I setup 2 `Todo` as test data, one active, one completed, `@Before` each `@Test` method. 
 ```java
 	@Before
@@ -53,10 +54,9 @@ Rewrite all tests in [TODO MVC VanillaJS](https://github.com/tastejs/todomvc/tre
 ```
 But I needed to know the `@Id` for each `Todo` to set expectations at the end of each test. However, the id generation strategy is set to `@GeneratedValue` in the `Todo.class`. 
 ```java
-	
-	@Id
+  @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
-	Long id;
+  Long id;
 ````
 That caused Todos to have a greater id number every time `@Before` gets called. I searched all over the internet for information on how to change the id generation strategy at runtime to another one like `@Assigned`, but I found no example. I took some deep dives into Hibernate's API but did not find a way to properly swap strategies at runtime. Finally, debugging Hibernate code lead me to find where the strategy is stored, and so I could only change it using Reflection. Here's how:
 ```java
