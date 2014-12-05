@@ -3,6 +3,8 @@ html(lang="en")
   head
     title.
       Ridiculous • TodoMVC
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css")
     link(rel='stylesheet', href='css/base.css')
     link(rel='stylesheet', href='css/app.css')
     script(type='text/javascript', src='js/helpers.js').
@@ -50,6 +52,15 @@ html(lang="en")
           input(type='hidden', name='_method', value='DELETE')
           button#clear-completed Clear completed (#{countCompleted})
     footer#info
+      div.panel.panel-default
+        div.panel-heading
+          h3.panel-title Control Panel
+        div.panel-body
+          div.row
+            p.col-md-6 Select the View tier technology
+            div.btn-group.col-md-6
+              a.btn.btn-default.active(href="/jade") Jade
+              a.btn.btn-default(href="/thymeleaf") Thymeleaf
       p Double-click to edit a todo
       p Current version is 
         strong v1.1.0-RELEASE
@@ -59,7 +70,3 @@ html(lang="en")
         a(href='http://todomvc.com') TodoMVC
       p Check the code at 
         a(href='https://github.com/mefernandez/ridiculous-todomvc') GitHub
-      p Switch the View tier to 
-        a(href='jade') Jade
-        |&nbsp;or 
-        a(href='thymeleaf') Thymeleaf

@@ -7,7 +7,7 @@
 		$on($toggleAll, 'change', function () {
 			var $form = this.form;
 			$form.submit();
-        });		
+		});
 
 		var $toggleItems = qsa('.toggle');
 		$toggleItems.forEach(function($item) {
@@ -15,7 +15,7 @@
 				var $form = this.form;
 				$form.submit();
 			});
-        });
+		});
 
 		var $toggleItems = qsa('#todo-list li label');
 		$toggleItems.forEach(function($item) {
@@ -25,7 +25,7 @@
 				var $li = qs('li[data-id="' + id + '"]');
 				$li.className = $li.className + ' editing';
 			});
-        });
+		});
 
 		var $editItems = qsa('#todo-list li .edit');
 		$editItems.forEach(function($item) {
@@ -44,6 +44,7 @@
 			});
 		});
 		
+
 	});
 
 })();
